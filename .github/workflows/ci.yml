@@ -20,14 +20,14 @@ jobs:
   # 1. Rapide : garde-fous, lint, types, tests unitaires, build.
   quality:
     name: Qualité (garde-fous, lint, types, unitaires, build)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
@@ -54,10 +54,10 @@ jobs:
   # 2. Aucun secret ne doit entrer dans le dépôt.
   secrets:
     name: Scan des secrets
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - uses: gitleaks/gitleaks-action@v2
@@ -67,13 +67,13 @@ jobs:
   # 3. Base de données réelle (Supabase local jetable) : RLS puis parcours utilisateur complets.
   database-e2e:
     name: Base de données (RLS) et tests d'acceptation
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: quality
     timeout-minutes: 25
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm

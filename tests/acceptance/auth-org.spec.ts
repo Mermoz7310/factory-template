@@ -34,7 +34,7 @@ test.describe("Comptes et organisations", () => {
 
   test("Étant donné un mauvais mot de passe, quand on se connecte, alors un message d'erreur s'affiche", async ({ page }) => {
     await logIn(page, DEMO.email, "mauvais-mot-de-passe");
-    await expect(page.getByRole("alert")).toContainText("incorrect");
+    await expect(page.getByText("E-mail ou mot de passe incorrect.")).toBeVisible();
     await expect(page).toHaveURL(/\/login/);
   });
 
